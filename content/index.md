@@ -3,12 +3,11 @@ title: Personal Notes
 ---
 
 
-- about linux
-- about programming
-- about philosophy
-- about religon
-- about maths
-- about physics
-- about computer engineering
+- about Linux
+- about Programming
+- about Maths
+- about Physics
+- about Philosophy
+- about Computer Engineering
 
 [[sorting-algorithms]]

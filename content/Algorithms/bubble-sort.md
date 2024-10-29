@@ -3,11 +3,16 @@ Title: Bubble sort
 ---
 
 > [!note]
-> **Bubble  sort** is fairly easy  sorting algorithm it sorts by checking every
-> adjacent item if one is bigger than the other and changing either way
-> consistently throughout
-> this means you can sort item ascending or descending by choosing which
-> item(small, large) you want to put on the left
+> **Bubble  sort** is fairly **easy**  sorting algorithm,
+> Bubble Sort is called "bubble" because larger elements tend to "bubble up"
+> to the top of the list as they are swapped. This process is repeated until no further swaps are needed, indicating that the list is sorted.
+
+> [!info]
+> It works by repeatedly comparing each pair of adjacent items
+> and swapping them if they are in the wrong order. By consistently
+> applying this process in one direction, you can sort items in ascending
+> or descending order, depending on whether you choose to place the smaller
+> or larger item on the left in each comparison.
 
 <iframe src="https://fit-s-u-m.github.io/Algorithms-visualized/" width="100%" height="700px"></iframe>
 
@@ -25,8 +30,17 @@ But as you can see you can easily change for choosing the largest and
 putting it to the right to make it choose the smallest and put it on
 the left.This is left as an exercise for the reader
 
-Lets see how bubble sort is done in code
-I choose type script  because I'm the most familiar with it but you can
+So starting at index 0 you check the first item with the second
+![bubble sort step 1](/Algorithms/images/bubble_sort_step1.png)
+if the first number is larger than the second you change the order of the two
+![bubble sort step 2](/Algorithms/images/bubble_sort_step2.png)
+![bubble sort step 3](/Algorithms/images/bubble_sort_step3.png)
+![bubble sort step 4](/Algorithms/images/bubble_sort_step4.png)
+you repeat this until in the whole loop have no swap
+
+## Let's code bubble sort
+
+I choose typescript  because I'm the most familiar with it but you can
 easily choose any language and the idea is the same
 
 ```typescript
@@ -58,7 +72,7 @@ But there is a big downside to the way we wrote the code above
 > what if it is almost sorted or fully sorted? Think what would it do ?
 
 The problem  with the previous code is even if it is sorted it tries to sort
-it by going and checking every loop buy ideally we if it is already sorted it
+it by going and checking every loop but ideally we if it is already sorted it
 should detect it in the first round when it check the whole item
 
 If it doesn't swap any item in the first round this means all
@@ -164,69 +178,67 @@ function swap(arr: number[], i: number, j: number) {
 }
 ```
 
-This is all if you want to get only the last return result correct
-but what I did for the illustration above is not this
-what I actually need is to to yield the results in the middle like
-when it swap.And if you don't want to write the visualization in the
-sorting algorithm it self. Because the visualization have many sorting
-algorithms implemented. I have to separate this.
+==One last optimization== you can do is each time we perform a full pass through the array,
+the *last position we swapped is actually the boundary of our unsorted section*.
+**This allows us to skip comparing any elements beyond this** index in subsequent passes.
+By tracking the last swapped position, we can avoid comparisons for elements
+that are already sorted.
+
+```typescript
+function bubbleSort(arr: number[]): number[] {
+    let sortedArray = [...arr];
+    let n = sortedArray.length;
+
+    while (n > 1) {
+        let lastSwappedIndex = 0;
+        for (let j = 0; j < n - 1; j++) {
+            if (sortedArray[j] > sortedArray[j + 1]) {
+                swap(sortedArray, j, j + 1);
+                lastSwappedIndex = j + 1;
+            }
+        }
+        n = lastSwappedIndex;
+    }
+
+    return sortedArray;
+}
+
+function swap(arr: number[], i: number, j: number) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
+```
+
+This is all if you want to get only the last return result
+correct but **what I did for the illustration above is not this** what
+I actually need is to to yield the results in the middle like when it swap.
+And you don't want to write the visualization in the sorting algorithm
+it self.
+
+## Why the need to separate visualizing and implementing sorting Algorithm ?
+
+There are **two** reasons for it
+
+- To use the visualization again and again (for different sorting algorithms)
+  - ![duplicate code step 1](/Algorithms/images/duplicate-code-01.png)
+  - ![duplicate code step 2](/Algorithms/images/duplicate-code-02.png)
+  - ![duplicate code step 3](/Algorithms/images/duplicate-code-03.png)
+
+- For **testing** the sorting Algorithm
+  - To separate bugs occurring in visualization process and sorting algorithms
 
 In JavaScript their is interesting function called  **Generator function**.
 
->[!question]
-> What is Generator function ?
+## What is Generator function ?
 
-A Generator function is a function that yields an iterator(which we gen each
-value iteratively not getting when whole thing as one we get each yield at a time)
-instead of a concrete result.
-
-An Iterator is something that we can iterate over by calling the
-next function.To think about it you can think it as a black box with cards inside
-which have a single hole which you can insert you hand and take one card at a time.
-
-> [!note]
-> A Generator Function in JavaScript is a special type of function that is used
-> to control the execution flow and produce values sequentially, instead of executing
-> all code at once like a regular function.
-
-A Generator function is a function  which allows pausing and resuming its execution
-during runtime.Unlike regular function, which run to completion
-
-A Generator function is identified by the presence of the `function*` syntax
-and the use of the `yield` keyword, which acts as a pause point during
-iteration. When a generator function is called, it does not execute immediately
-like a regular function but returns an iterator object instead. The iterator object
-has a method, such as `next()`, that can be called to continue the execution of the
-generator function from where it left off, and optionally return a value.
-
-So the yield keyword pauses the execution and gives you the value at that execution period.
-
-Here's an example of a simple generator function that counts numbers starting
-from 0:
-
-```javascript
-function* numberGenerator() {
-    let count = 0;
-    while (true) {
-        yield count;
-        count++;
-    }
-}
-
-const myGenerator = numberGenerator();
-console.log(myGenerator.next().value); // Output: 0
-console.log(myGenerator.next().value); // Output: 1
-```
-
-In this example, `numberGenerator()` is a generator function that generates numbers
-starting from 0 and continues indefinitely as long as we call the `next()` method
-on its returned iterator object, `myGenerator`.This is called lazy evaluation
-it evaluate the computation only when asked to compute(when needed).
+![[FuncitonalProgamming/generatorFunction]]
 
 >[!question]
 > How does Generator function solve our problem ?
 
-Instead of returning at the end you can yield when for every loop
+Instead of returning at the end you yield values while computing other iteration.
 
 ```typescript
 
@@ -265,3 +277,6 @@ function swap(arr: number[], i: number, j: number) {
     arr[j] = temp;
 }
 ```
+
+Instead of returning the last value you can return the intermediate value
+then using that we can visualize it.
