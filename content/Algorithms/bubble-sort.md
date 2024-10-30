@@ -31,11 +31,12 @@ putting it to the right to make it choose the smallest and put it on
 the left.This is left as an exercise for the reader
 
 So starting at index 0 you check the first item with the second
-![bubble sort step 1](/Algorithms/images/bubble_sort_step1.png)
 if the first number is larger than the second you change the order of the two
-![bubble sort step 2](/Algorithms/images/bubble_sort_step2.png)
-![bubble sort step 3](/Algorithms/images/bubble_sort_step3.png)
-![bubble sort step 4](/Algorithms/images/bubble_sort_step4.png)
+
+| ![bubble sort step 1](/images/bubble_sort_step1.png)| ![bubble sort step 2](/images/bubble_sort_step2.png) |
+| --- | --- |
+|![bubble sort step 3](/images/bubble_sort_step3.png) | ![bubble sort step 4](/images/bubble_sort_step4.png)|
+
 you repeat this until in the whole loop have no swap
 
 ## Let's code bubble sort
@@ -222,9 +223,9 @@ it self.
 There are **two** reasons for it
 
 - To use the visualization again and again (for different sorting algorithms)
-  - ![duplicate code step 1](/Algorithms/images/duplicate-code-01.png)
-  - ![duplicate code step 2](/Algorithms/images/duplicate-code-02.png)
-  - ![duplicate code step 3](/Algorithms/images/duplicate-code-03.png)
+  - ![duplicate code step 1](/images/duplicate-code-01.png)
+  - ![duplicate code step 2](/images/duplicate-code-02.png)
+  - ![duplicate code step 3](/images/duplicate-code-03.png)
 
 - For **testing** the sorting Algorithm
   - To separate bugs occurring in visualization process and sorting algorithms
