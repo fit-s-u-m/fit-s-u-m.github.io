@@ -96,7 +96,7 @@ But if you know it's mostly low values you can just reverse the direction you
 are sorting to check from the left side to right.If we have checked from starting
 5 we would have got the right place for 4 easily.
 
-Using generator function I have talked about it in [[bubble-sort]] and [[Generator-Function]]
+Using generator function I have talked about it in [[bubble-sort]] and [[FuncitonalProgamming/generatorFunction]]
 
 Here is the end code for it.Implementing this by changing direction for sorting
 is left as an exercise for the reader.
