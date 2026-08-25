@@ -11,3 +11,4 @@ title: Personal Notes
 - about Computer Engineering
 
 [[sorting-algorithms]]
+[12-preparation]
